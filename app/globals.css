@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+@theme {
+  /* **Un thème sombre et neutre, et c'est un choix, pas un goût.**
+     Cet outil part chez des coachs qui n'ont rien à voir les uns avec les
+     autres, et il ne doit ressembler à la marque d'aucun d'eux, à commencer
+     par celle de son éditeur. Une palette de gris froids et un seul accent
+     bleu : c'est ce qui se laisse le mieux oublier, et ce qu'un coach peut
+     reprendre à son compte sans avoir l'impression d'habiter chez quelqu'un.
+
+     Le sombre plutôt que le clair pour la même raison, et pour une autre :
+     un fond blanc avec un accent vif est le terrain de jeu de toutes les
+     chartes, donc celui où l'on ressemble à quelqu'un par accident.
+
+     Les noms disent le rôle et non la couleur (`accent`, et non `bleu`) :
+     c'est ce qui permettra de rendre l'accent réglable sans repasser sur
+     trente-sept fichiers. La leçon vient d'ici même, où un token nommé
+     `orange` a fallu renommer partout le jour où il a cessé de l'être. */
+  /* **Les deux fonds gardent leur rôle et échangent leur clarté.** En clair,
+     `fond` était le blanc des cartes et de la barre, `fond-alt` le gris de la
+     page : la surface haute était la plus claire. En sombre, c'est l'inverse
+     qui donne le même relief, la surface haute étant celle qui capte le plus
+     de lumière. Les rôles ne bougent pas, donc aucune classe de l'app n'a eu
+     à changer. */
+  --color-fond: #171a21;
+  --color-fond-alt: #0f1115;
+  --color-texte: #e8eaee;
+  --color-texte-doux: rgba(232, 234, 238, 0.6);
+  --color-bordure: rgba(232, 234, 238, 0.11);
+  --color-accent: #7089ff;
+  --color-accent-fonce: #5f78f0;
+  /* Un voile translucide et non un aplat : posé sur `fond` comme sur
+     `fond-alt`, il garde le même écart avec son support. Un aplat opaque
+     ferait une tache sur l'un des deux. */
+  --color-accent-doux: rgba(112, 137, 255, 0.14);
+  --color-surface: #232834;
+  /* Exception documentée dans docs/decisions/0008 : réservé au seul bouton de
+     conversion. Toute autre action reste sur l'accent. */
+  --color-vert: #34d399;
+  --color-vert-fonce: #25b98a;
+
+  /* Le blanc franc des titres et des chiffres, un cran au-dessus du texte
+     courant. Sur fond sombre, c'est la clarté qui hiérarchise, là où sur fond
+     clair c'était la profondeur : le rôle est le même, la direction est
+     inversée. */
+  --color-titre: #ffffff;
+
+  /* Rayons */
+  --radius-carte: 16px;
+  --radius-icone: 12px;
+  --radius-pilule: 9999px;
+
+  /* Aucune police achetée ni chargée : la pile système. Elle rend la même
+     chose que les grotesques neutres qu'on irait chercher chez Google, sans
+     l'attente du chargement ni un appel de plus vers un tiers depuis l'app
+     d'un coach. Jamais de serif. */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+
+  /* Sur fond sombre, une ombre portée ne se voit pas : c'est le liseré clair
+     qui détache une carte de son fond. Les trois niveaux restent, mais ils
+     jouent sur l'intensité du liseré plutôt que sur la portée de l'ombre. */
+  --shadow-douce: 0 0 0 1px rgba(232, 234, 238, 0.06);
+  --shadow-carte: 0 0 0 1px rgba(232, 234, 238, 0.08),
+    0 8px 20px -12px rgba(0, 0, 0, 0.7);
+  --shadow-haute: 0 0 0 1px rgba(232, 234, 238, 0.1),
+    0 12px 28px -12px rgba(0, 0, 0, 0.8),
+    0 24px 48px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* Dit au navigateur que la page est sombre : sans ça, il dessine les barres
+   de défilement, les menus déroulants et les champs de date en clair au
+   milieu d'une interface sombre. */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-fond);
+  color: var(--color-texte);
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3 {
+  font-weight: 500; /* Medium, pas Bold. Le Bold est réservé aux chiffres. */
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+@keyframes entree {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 6 pixels et 200 ms : assez pour que l'œil sente l'arrivée, trop peu pour
+   qu'il l'attende. Une entrée qui se remarque devient une lenteur. */
+main > * {
+  animation: entree 200ms ease-out;
+}
+
+/* Les entrées de la porte d'entrée du profil. Trois seulement, et toutes
+   courtes : une question qui met une seconde à s'afficher devient une
+   attente, et il y en a dix à passer.
+
+   Le glissement porte un sens, il n'est pas décoratif : la question suivante
+   arrive par la droite, la précédente revient par la gauche. C'est ce qui
+   fait sentir qu'on avance dans une file plutôt qu'on saute d'un écran à un
+   autre. */
+@keyframes glisse-avant {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes glisse-arriere {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes monte {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.entree-avant {
+  animation: glisse-avant 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.entree-arriere {
+  animation: glisse-arriere 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* `both` retient l'état de départ : sans lui, un élément retardé s'affiche à
+   sa place définitive avant de disparaître pour rejouer son entrée. */
+.entree-monte {
+  animation: monte 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* La même entrée, mais en cascade : chaque enfant part 70 ms après son
+   aîné. C'est ce qui donne le plus de « soigné » pour le moins de code, et
+   c'est la seule animation d'arrivée de la connexion.
+
+   La cascade s'arrête au cinquième : au-delà, l'attente se sent, et le
+   dernier arrivant donnerait l'impression que la page rame. Les suivants
+   entrent donc tous avec lui. */
+.cascade > * {
+  animation: monte 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cascade > *:nth-child(2) {
+  animation-delay: 70ms;
+}
+.cascade > *:nth-child(3) {
+  animation-delay: 140ms;
+}
+.cascade > *:nth-child(4) {
+  animation-delay: 210ms;
+}
+.cascade > *:nth-child(n + 5) {
+  animation-delay: 280ms;
+}
+
+/* Le champ de la porte d'entrée n'a pas de cadre, juste un trait sous le
+   texte. Les deux flèches que le navigateur accroche à un champ de type
+   nombre viennent alors se poser dans le vide, à droite de rien, et cassent
+   la seule ligne de l'écran. On les retire là et nulle part ailleurs : dans
+   un formulaire encadré, elles rendent service. */
+.champ-nu::-webkit-outer-spin-button,
+.champ-nu::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.champ-nu[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* L'indicateur du lien cliqué (lib/design/IndicateurNavigation.tsx).
+
+   Le retard de 120 ms est toute l'astuce : une navigation préchargée arrive
+   avant lui, donc l'indicateur se démonte sans jamais avoir été visible.
+   Seules les navigations réellement lentes le montrent. Sans ce retard, on
+   aurait un clignotement à chaque clic, et une app qui clignote paraît
+   agitée, pas rapide. */
+@keyframes apparait-retarde {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+
+.apparait-retarde {
+  opacity: 0;
+  animation: apparait-retarde 140ms ease-out 120ms forwards;
+}
+
+/* Respecte le réglage système : certains désactivent les animations parce
+   qu'elles leur donnent le vertige, pas par goût. Les entrées de la porte
+   sont en `both`, donc les neutraliser demande aussi de rendre l'opacité :
+   sans cette règle, un élément retardé resterait invisible pour toujours. */
+@media (prefers-reduced-motion: reduce) {
+  main > *,
+  .animate-pulse {
+    animation: none;
+  }
+
+  .entree-avant,
+  .entree-arriere,
+  .entree-monte,
+  .cascade > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  /* L'indicateur reste visible mais ne tourne plus : le retirer priverait
+     d'un retour ceux qui en ont le plus besoin, la lenteur ne disparaissant
+     pas parce qu'on a coupé les animations. `motion-safe:` retire déjà la
+     rotation, cette règle rend l'opacité que le retard aurait gardée à
+     zéro. */
+  .apparait-retarde {
+    animation: none;
+    opacity: 0.55;
+  }
+}
