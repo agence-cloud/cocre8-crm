@@ -18,6 +18,7 @@ type Nom =
 
   | "coche"
   | "croix"
+  | "reglages"
   | "stylo";
 
 /**
@@ -154,6 +155,15 @@ const CHEMINS: Record<Nom, React.ReactNode> = {
   replier: <path d="M14 6l-6 6 6 6" />,
   coche: <path d="M5 12.5l4.5 4.5L19 7.5" />,
   croix: <path d="M6 6l12 12M18 6L6 18" />,
+  // Trois curseurs, comme une table de mixage : le réglage se voit mieux dans
+  // une glissière que dans une roue crantée, qui dit plutôt la mécanique.
+  reglages: (
+    <>
+      <path d="M4 7h10M18 7h2M4 17h4M12 17h8" />
+      <circle cx="16" cy="7" r="2" />
+      <circle cx="10" cy="17" r="2" />
+    </>
+  ),
   // Un crayon en diagonale, la pointe en bas à gauche, comme quand on le
   // tient pour écrire. Le second tracé sépare la mine du corps : sans
   // lui la forme se lit comme un simple losange allongé, c'est ce trait qui

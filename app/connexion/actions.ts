@@ -55,8 +55,8 @@ export async function seConnecter(
     .single();
 
   // Distinguer les deux cas : une base injoignable n'est pas un retrait
-  // d'accès. Les confondre enverrait un membre appeler son coach pour un
-  // incident réseau, et le coach chercherait une clôture qui n'existe pas.
+  // d'accès. Les confondre ferait chercher un compte clôturé là où il n'y a
+  // qu'un incident réseau.
   if (erreurCompte && erreurCompte.code !== "PGRST116") {
     await supabase.auth.signOut();
     return { erreur: "Connexion impossible pour le moment. Réessaie dans un instant." };
@@ -64,7 +64,7 @@ export async function seConnecter(
 
   if (!compte || !compte.actif) {
     await supabase.auth.signOut();
-    return { erreur: "Ton accès a été clôturé. Contacte ton coach." };
+    return { erreur: "Ce compte n’est pas celui du propriétaire de cet outil." };
   }
 
   redirect(cheminAccueil());

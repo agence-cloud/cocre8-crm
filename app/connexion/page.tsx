@@ -14,14 +14,14 @@ import {
 const INITIAL: EtatConnexion = { erreur: null };
 
 /**
- * Ce que le membre voit derrière la porte, dans l'ordre où il le vivra.
- * Trois, pas cinq : une liste qu'on lit d'un regard vaut mieux qu'un
- * inventaire qu'on survole.
+ * Ce qui attend derrière la porte, dans l'ordre où on s'en sert. Trois, pas
+ * cinq : une liste qu'on lit d'un regard vaut mieux qu'un inventaire qu'on
+ * survole.
  */
 const CE_QUI_ATTEND = [
-  "Ton programme, tes tâches et ta progression",
-  "Tes coachings, leurs enregistrements et leurs résumés",
-  "Tes documents et ceux de ton coach",
+  "Tous tes contacts, avec ce que tu veux savoir d'eux",
+  "Ton pipe en colonnes, et chaque passage daté",
+  "Ce que pèse ton pipe, et ce qui y entre",
 ];
 
 export default function PageConnexion() {
@@ -31,10 +31,10 @@ export default function PageConnexion() {
     <EcranAuth
       titre={
         <>
-          Accède à ton <span className="block text-accent">espace personnel.</span>
+          Ouvre ton <span className="block text-accent">carnet d&apos;adresses.</span>
         </>
       }
-      accroche="Tout ton parcours, au même endroit."
+      accroche="Tes contacts et ton pipe, au même endroit."
       points={CE_QUI_ATTEND}
     >
       <TitreAuth>Connexion</TitreAuth>
@@ -74,7 +74,7 @@ export default function PageConnexion() {
         )}
 
         <Bouton type="submit" disabled={enCours} className={BOUTON_AUTH}>
-          {enCours ? "Connexion..." : "Entrer dans mon espace"}
+          {enCours ? "Connexion..." : "Entrer"}
           {!enCours && (
             <span
               aria-hidden="true"
@@ -86,7 +86,7 @@ export default function PageConnexion() {
         </Bouton>
 
         <p className="mt-6 text-center text-[13px] text-texte-doux/65">
-          Un souci pour te connecter ? Écris à ton coach.
+          Un souci ? Le lien de récupération se demande depuis Supabase.
         </p>
       </form>
     </EcranAuth>

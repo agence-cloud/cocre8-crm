@@ -78,7 +78,7 @@ export default function PageMotDePasse() {
       // routeur garde en cache a été rendu sans elle. Sans lui, l'espace
       // pourrait s'ouvrir sur une page rendue pour un visiteur déconnecté.
       router.refresh();
-      router.push("/espace");
+      router.push("/contacts");
     });
   }
 

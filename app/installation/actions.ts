@@ -37,5 +37,5 @@ export async function installer(
   // plutôt que de lui laisser croire que l'installation a raté.
   if (error) redirect("/connexion");
 
-  redirect("/pilotage");
+  redirect("/contacts");
 }

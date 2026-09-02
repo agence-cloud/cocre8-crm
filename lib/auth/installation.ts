@@ -101,8 +101,6 @@ export async function installerLePremierCompte(
 
   const { error: erreurCompte } = await service.from("compte").insert({
     id: utilisateur.user.id,
-    role: "admin",
-    personne_id: null,
     nom: nom.trim(),
   });
 

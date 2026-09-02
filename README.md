@@ -9,32 +9,147 @@ base. Personne d'autre n'a accès à tes données, nous compris.
 ## Ce qu'il fait
 
 **Tes contacts.** Tu en ajoutes un à la main, ou tu importes ton fichier
-existant en CSV. Chaque fiche porte ce que tout le monde a (nom, email,
-téléphone, entreprise, montant, source) et ce que toi seul as : tu ajoutes tes
-propres champs, et ils apparaissent sur toutes les fiches.
+existant. Chaque fiche porte ce que tout le monde a (nom, email, téléphone,
+entreprise, montant, source) et ce que toi seul as : tu ajoutes tes propres
+champs, et ils apparaissent sur toutes les fiches.
 
-**Tes étapes.** Un pipe en colonnes, et un contact qu'on déplace de l'une à
+**Ton pipe.** Des colonnes, et une carte qu'on fait glisser de l'une à
 l'autre. Les étapes sont les tiennes : tu les renommes, tu en ajoutes, tu en
 retires.
 
-**Tes chiffres.** Combien de contacts à chaque étape, combien sont entrés ce
-mois-ci, combien sont allés jusqu'au bout, et ce que pèse ton pipe.
+**Tes chiffres.** Ce que pèse ton pipe, ce que tu as gagné, ton taux de
+conversion, qui se trouve à chaque étape, et combien de contacts entrent
+chaque mois.
+
+## L'import de ton fichier
+
+Le geste du premier jour. Tu prends le fichier CSV que ton tableur exporte,
+l'app devine à quelle colonne de la fiche correspond chacune des tiennes, te
+montre les trois premières lignes telles qu'elles arriveront, et tu corriges
+ce qui ne va pas avant que rien ne soit créé.
+
+**Rien n'est jamais écrasé.** Un contact dont l'email est déjà chez toi est
+écarté, pas mis à jour, et l'écran te dit lesquels avec le numéro de ligne de
+ton tableur. Un import est le geste le plus facile à relancer par erreur.
+
+## Le récupérer
+
+Deux façons, et la première suffit à presque tout le monde.
+
+**Le plus simple : le bouton vert « Use this template »**, en haut de cette
+page. GitHub te crée ta propre copie, chez toi, que tu peux modifier. Il te
+faut un compte GitHub, gratuit.
+
+**Sans compte GitHub :** clique sur « Code » puis « Download ZIP ». Tu as le
+dossier sur ton ordinateur. Tu pourras le remettre sur GitHub plus tard si tu
+veux le déployer en ligne.
 
 ## L'installer
 
-Quatre étapes, une vingtaine de minutes, aucune ligne de commande. Le
-[README du portail](#) décrit exactement le même chemin.
+Quatre étapes, une vingtaine de minutes, aucune ligne de commande.
 
-1. **Crée un projet Supabase**, gratuit, sur
-   [supabase.com](https://supabase.com).
-2. **Crée ta base.** Ouvre l'éditeur SQL, colle le contenu de
-   [`install.sql`](./install.sql), exécute.
-3. **Déploie l'app** sur Vercel, avec les trois valeurs de ton projet
-   Supabase. Copie chaque clé avec le bouton de copie, jamais en sélectionnant
-   le texte : Supabase les affiche masquées, et une clé masquée a exactement
-   la longueur de la vraie.
-4. **Crée ton compte.** Le premier compte créé devient le tien, et la porte se
-   referme derrière toi pour toujours.
+### 1. Ta base de données
+
+Va sur [supabase.com](https://supabase.com), crée un compte gratuit, puis
+« New project ». Donne-lui un nom, choisis une région proche de toi, et note
+le mot de passe qu'il te demande quelque part. Attends deux minutes qu'il se
+prépare.
+
+C'est ta base : elle t'appartient, et personne d'autre n'y a accès.
+
+### 2. Créer les tables
+
+Ouvre le fichier [`install.sql`](./install.sql) sur cette page, et clique sur
+l'icône de copie en haut à droite du fichier.
+
+Retourne sur Supabase, clique sur **SQL Editor** dans la colonne de gauche,
+colle, et clique sur **Run**. C'est fait. Tu n'as rien à comprendre dans ce
+fichier.
+
+### 3. Mettre l'app en ligne
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fagence-cloud%2Fcocre8-crm&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY&envDescription=Les%20trois%20valeurs%20de%20ton%20projet%20Supabase&project-name=crm&repository-name=crm)
+
+Ce bouton t'emmène chez Vercel, qui héberge l'app gratuitement. Il te demande
+trois valeurs avant de démarrer. Elles sont toutes dans ton projet Supabase :
+
+| Ce que Vercel demande | Où le trouver dans Supabase |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Project Settings, **Data API**, ligne « Project URL » |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Project Settings, **API Keys**, la clé `anon` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Au même endroit, la clé `service_role` |
+
+**Copie chaque clé avec le petit bouton de copie**, jamais en sélectionnant le
+texte à l'écran. Supabase les affiche masquées avec des points, et une clé
+masquée a exactement la même longueur que la vraie : rien ne permet de les
+distinguer à l'oeil.
+
+La troisième, `service_role`, est un secret. Elle sert à créer les comptes de
+tes clients, et elle ne doit jamais sortir de chez toi.
+
+Si tu te trompes, l'installation s'arrête et te dit en français laquelle des
+trois cloche et pourquoi. Corrige la valeur chez Vercel, puis clique sur
+**Redeploy** : une valeur corrigée ne prend effet qu'au déploiement suivant.
+
+### 4. Ton compte
+
+Ouvre l'adresse que Vercel te donne. Un écran te demande ton nom, ton email et
+un mot de passe.
+
+Ce premier compte devient le tien, et **la porte se referme derrière toi pour
+toujours** : il n'y a pas de formulaire d'inscription sur ton portail,
+personne d'autre ne peut s'y créer un compte.
+
+Importe ensuite ton fichier de contacts, ou ajoute le premier à la main.
+
+## Le faire tourner sur ton ordinateur
+
+Facultatif. L'app marche très bien sans que tu ouvres jamais un terminal. Ceci
+ne sert qu'à modifier le code.
+
+Il te faut [Node.js](https://nodejs.org), puis dans le dossier :
+
+```
+npm install
+cp .env.example .env.local     # puis remplis les trois valeurs
+npm run dev
+```
+
+L'app répond sur `http://localhost:3000`, contre la même base que ta version
+en ligne.
+
+## Si quelque chose ne répond pas
+
+Ouvre `/diagnostic` sur ton installation, par exemple
+`https://ton-app.vercel.app/diagnostic`. La page dit l'adresse qu'elle
+interroge, si tes trois valeurs sont bien arrivées, et si ton projet Supabase
+lui répond. C'est la première chose à regarder quand la connexion refuse : une
+adresse ou une clé fausse produit exactement le même écran qu'un mot de passe
+faux.
+
+Trois pièges qui coûtent une soirée chacun :
+
+- **Copie tes clés avec le bouton de copie**, jamais en sélectionnant le texte
+  affiché. Supabase les montre masquées, et une clé masquée a exactement la
+  longueur de la vraie : rien ne distingue les deux à l'oeil, et l'app se
+  contente de refuser la connexion.
+
+- Sur Vercel, une variable de type **Secret** n'est pas lisible pendant la
+  construction. Les deux valeurs `NEXT_PUBLIC_` doivent être de type
+  **Config**, sinon elles arrivent vides sans que rien ne le montre. Seule
+  `SUPABASE_SERVICE_ROLE_KEY` reste un Secret.
+- Une valeur corrigée ne prend effet qu'au **déploiement suivant**. Corrige,
+  puis redéploie.
+
+## Le régler
+
+Tout se règle depuis l'app : le nom de ton outil, ta devise, tes étapes et
+leur ordre, et les champs que tu ajoutes aux fiches.
+
+Deux suppressions sont refusées, et le message dit quoi faire à la place :
+retirer une étape qui porte encore des contacts, et retirer un champ auquel
+des contacts ont répondu. Dans le second cas, décoche-le : il disparaît des
+fiches et les réponses restent.
 
 ## Ce qu'il ne fait pas
 

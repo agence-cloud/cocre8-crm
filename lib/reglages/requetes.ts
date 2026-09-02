@@ -30,9 +30,9 @@ export const lireReglages = cache(async (): Promise<Reglages> => {
  * valeur. Ouvrir toute la table aux anonymes aurait aussi donné le nom et le
  * numéro du coach, qui ne regardent que ses clients.
  */
-export const lireNomDuProgramme = cache(async (): Promise<string> => {
+export const lireNomDeLOutil = cache(async (): Promise<string> => {
   const supabase = await creerClientServeur();
-  const { data, error } = await supabase.rpc("nom_du_programme");
+  const { data, error } = await supabase.rpc("nom_de_loutil");
 
   if (error || typeof data !== "string") return REGLAGES_PAR_DEFAUT.nom_programme;
 

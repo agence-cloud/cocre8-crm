@@ -13,11 +13,11 @@ import {
 
 const INITIAL: EtatInstallation = { erreur: null };
 
-/** Ce qui attend le coach une fois entré, dans l'ordre où il le fera. */
+/** Ce qui attend une fois entré, dans l'ordre où on le fera. */
 const LES_PREMIERS_PAS = [
-  "Charge un jeu de démonstration pour voir l'outil vivre",
-  "Renomme les parties de ton accompagnement",
-  "Ajoute ton premier client et envoie-lui ses accès",
+  "Importe ton fichier de contacts, ou ajoute le premier à la main",
+  "Renomme les étapes de ton pipe",
+  "Ajoute les champs qui manquent à tes fiches",
 ];
 
 export function FormulaireInstallation() {
@@ -30,7 +30,7 @@ export function FormulaireInstallation() {
           Ton outil est prêt, <span className="block text-accent">crée ton compte.</span>
         </>
       }
-      accroche="Ce compte sera le tien, celui du coach. C'est la seule fois où cet écran s'affiche."
+      accroche="Ce compte sera le tien. C'est la seule fois où cet écran s'affiche."
       points={LES_PREMIERS_PAS}
     >
       <TitreAuth>Mise en service</TitreAuth>

@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { creerClientServeur } from "@/lib/supabase/serveur";
 import type { CompteConnecte, Role } from "@/lib/auth/roles";
-import { cheminAccueil } from "@/lib/auth/roles";
 
 export async function lireCompteConnecte(): Promise<CompteConnecte | null> {
   const supabase = await creerClientServeur();
