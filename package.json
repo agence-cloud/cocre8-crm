@@ -9,7 +9,6 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:parcours": "playwright test",
     "verifier": "node scripts/verifier-la-purge.mjs"
   },
   "dependencies": {
@@ -21,7 +20,6 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
