@@ -50,7 +50,7 @@ export async function seConnecter(
 
   const { data: compte, error: erreurCompte } = await supabase
     .from("compte")
-    .select("role, actif")
+    .select("actif")
     .eq("id", data.user.id)
     .single();
 

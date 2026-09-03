@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { creerClientServeur } from "@/lib/supabase/serveur";
-import type { CompteConnecte, Role } from "@/lib/auth/roles";
+import type { CompteConnecte } from "@/lib/auth/roles";
 
 export async function lireCompteConnecte(): Promise<CompteConnecte | null> {
   const supabase = await creerClientServeur();
@@ -15,7 +15,7 @@ export async function lireCompteConnecte(): Promise<CompteConnecte | null> {
 
   const { data, error } = await supabase
     .from("compte")
-    .select("id, role, nom, actif")
+    .select("id, nom, actif")
     .eq("id", user.id)
     .single();
 
@@ -30,7 +30,6 @@ export async function lireCompteConnecte(): Promise<CompteConnecte | null> {
 
   return {
     id: data.id,
-    role: data.role as Role,
     nom: data.nom,
   };
 }

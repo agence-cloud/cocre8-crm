@@ -4,16 +4,15 @@
  * arbitrer, pas d'espace à cloisonner. Le portail dont ce socle est copié en
  * avait deux, `admin` et `membre`, et ce rôle décidait de l'atterrissage.
  *
- * Le type reste, réduit à une seule valeur : il traverse `compte.role` et les
- * fonctions de permission de la base, où une colonne à valeur unique se lit
- * mieux qu'une colonne absente. Le jour où un second siège apparaît, c'est ici
- * qu'il s'ajoute.
+ * **Il n'en reste donc aucune trace, ni en base ni ici**, et il en restait une
+ * de trop : le compte lu portait un champ `role` que `install.sql` ne créait
+ * pas. Personne ne s'en apercevait avant la toute première connexion, où
+ * Postgres refusait la colonne et l'outil rendait une erreur serveur à celui
+ * qui venait de poser son compte. Le jour où un second siège apparaît, le
+ * rôle revient ici **et** dans `install.sql`, jamais dans un seul des deux.
  */
-export type Role = "admin";
-
 export type CompteConnecte = {
   id: string;
-  role: Role;
   nom: string;
 };
 
