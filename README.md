@@ -153,6 +153,9 @@ retirer une étape qui porte encore des contacts, et retirer un champ auquel
 des contacts ont répondu. Dans le second cas, décoche-le : il disparaît des
 fiches et les réponses restent.
 
+**Ton mot de passe se change là aussi**, en bas des réglages. Rien n'est
+envoyé par email : tu poses le nouveau, tu le confirmes, c'est fait.
+
 ## Ce qu'il ne fait pas
 
 Ce n'est ni un espace client ni un outil de facturation. Tes contacts ne s'y

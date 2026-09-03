@@ -7,6 +7,7 @@ import {
   ReglagesEtapes,
   ReglagesOutil,
 } from "@/modules/crm/Reglages";
+import { MonMotDePasse } from "@/lib/design/MonMotDePasse";
 
 export default async function PageReglages() {
   await exigerCompte();
@@ -31,6 +32,7 @@ export default async function PageReglages() {
         <ReglagesOutil reglages={reglages} />
         <ReglagesEtapes etapes={etapes} />
         <ReglagesChamps champs={champs} />
+        <MonMotDePasse />
       </div>
     </>
   );
